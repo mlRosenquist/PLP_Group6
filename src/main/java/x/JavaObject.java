@@ -1,6 +1,6 @@
 package main.java.x;
 
-import main.java.y.ScalaObject;
+import main.scala.x.ScalaObject;
 
 public class JavaObject {
     public void sayHello() {

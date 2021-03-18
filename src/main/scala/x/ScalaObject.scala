@@ -1,4 +1,4 @@
-package main.java.y
+package main.scala.x
 
 import main.java.x.JavaObject
 
