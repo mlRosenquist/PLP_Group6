@@ -1,1 +1,17 @@
-[0m[[0m[0mdebug[0m] [0m[0mJar uptodate: C:\Users\MLR\source\java-repos\FigureDrawer\target\scala-2.13\figuredrawer_2.13-1.0.jar[0m
+[0m[[0m[0mdebug[0m] [0m[0mPackaging C:\Users\MLR\source\java-repos\PLP_Group6\target\scala-2.13\figuredrawer_2.13-1.0.jar ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	main[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\MLR\source\java-repos\PLP_Group6\target\scala-2.13\classes\main[0m
+[0m[[0m[0mdebug[0m] [0m[0m	main\java[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\MLR\source\java-repos\PLP_Group6\target\scala-2.13\classes\main\java[0m
+[0m[[0m[0mdebug[0m] [0m[0m	main\java\x[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\MLR\source\java-repos\PLP_Group6\target\scala-2.13\classes\main\java\x[0m
+[0m[[0m[0mdebug[0m] [0m[0m	main\java\x\JavaObject.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\MLR\source\java-repos\PLP_Group6\target\scala-2.13\classes\main\java\x\JavaObject.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	main\java\y[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\MLR\source\java-repos\PLP_Group6\target\scala-2.13\classes\main\java\y[0m
+[0m[[0m[0mdebug[0m] [0m[0m	main\java\y\ScalaObject$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\MLR\source\java-repos\PLP_Group6\target\scala-2.13\classes\main\java\y\ScalaObject$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	main\java\y\ScalaObject.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\MLR\source\java-repos\PLP_Group6\target\scala-2.13\classes\main\java\y\ScalaObject.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mDone packaging.[0m

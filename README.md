@@ -3,7 +3,8 @@
 ## Setting up the project
 Steps to be performed when initializing the project: 
 * Clone it
-* Verify Java / Scala / Sbt version (Working ones are Java:, Scala: , Sbt: )
+* Download Java and add it to path (Working one is Java:"1.8.0_281")
+* Download sbt and add it to path
 
 ## Debug
 Steps to be performed when you want to debug the project: 
