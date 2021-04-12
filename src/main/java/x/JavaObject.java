@@ -1,16 +1,35 @@
 package main.java.x;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.Parent;
 import main.scala.x.ScalaObject;
 
-public class JavaObject {
+import java.util.Objects;
+
+public class JavaObject extends Application {
     public void sayHello() {
         System.out.println("Hi from Java!");
     }
     // sbt -jvm-debug 5005
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("FigureDrawerMain.fxml")));
+        primaryStage.setTitle("DrawingApp");
+        primaryStage.setScene(new Scene(root, 720, 480));
+        primaryStage.show();
+    }
+
     public static void main(String [] args) {
         JavaObject javaObject = new JavaObject();
         ScalaObject scalaObject = new ScalaObject();
         javaObject.sayHello();
         scalaObject.sayHello();
+
+        launch(args);
     }
+
 }
