@@ -48,7 +48,7 @@ class Interpreter {
                 Fill.parse(s)
               }
               case default => {
-                new Error()
+                new Error("Invalid command: " + i)
               }
             })
   }

@@ -1,5 +1,5 @@
 package main.scala.models
 
-class Error extends Instruction {
-
+class Error(_msg: String) extends Instruction {
+  var msg = _msg;
 }

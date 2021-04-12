@@ -1,5 +1,8 @@
 package main.scala.models
 
-class Figure extends Instruction {
+import java.awt.Color
 
+class Figure extends Instruction {
+  var color = Color.BLACK;
+  var fillColor = null;
 }
