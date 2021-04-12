@@ -1,8 +1,8 @@
 package main.scala.models
 
-class Line(_c1: Point, _c2: Point) extends Instruction {
-  var c1 = _c1
-  var c2 = _c2
+class Line(_start: Point, _end: Point) extends Figure {
+  var start = _start
+  var end = _end
 }
 object Line {
   def parse(input: String): Line ={

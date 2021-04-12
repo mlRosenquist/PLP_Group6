@@ -26,11 +26,26 @@ class Interpreter {
         // Map each instruction to an instruction
         .map(i =>
             i match {
+              case s if s.startsWith(InstructionsEnum.BoundingBox.toString) => {
+                BoundingBox.parse(s)
+                }
               case s if s.startsWith(InstructionsEnum.Line.toString) => {
                 Line.parse(s)
-                }
+              }
               case s if s.startsWith(InstructionsEnum.Circle.toString) => {
-                new Circle()
+                Circle.parse(s)
+              }
+              case s if s.startsWith(InstructionsEnum.Rectangle.toString) => {
+                Rectangle.parse(s)
+              }
+              case s if s.startsWith(InstructionsEnum.TextAt.toString) => {
+                TextAt.parse(s)
+              }
+              case s if s.startsWith(InstructionsEnum.Draw.toString) => {
+                Draw.parse(s)
+              }
+              case s if s.startsWith(InstructionsEnum.Fill.toString) => {
+                Fill.parse(s)
               }
               case default => {
                 new Error()
