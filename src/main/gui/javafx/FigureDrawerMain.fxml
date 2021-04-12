@@ -40,23 +40,29 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ToolBar prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <Button defaultButton="true" mnemonicParsing="false" text="Run code" />
+          <Button defaultButton="true" mnemonicParsing="false" text="✅ Run code" />
             <Separator orientation="VERTICAL">
                <padding>
                   <Insets left="5.0" right="1.0" />
                </padding>
             </Separator>
-            <Button mnemonicParsing="false" text="Clear" />
+            <Button mnemonicParsing="false" text="❌ Clear Drawing" />
         </items>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <effect>
+            <DropShadow />
+         </effect>
       </ToolBar>
       <SplitPane dividerPositions="0.6" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
         <items>
