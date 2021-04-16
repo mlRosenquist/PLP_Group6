@@ -10,5 +10,6 @@
     <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
     <orderEntry type="library" name="scala-sdk-2.13.5" level="application" />
     <orderEntry type="library" name="javafx" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
