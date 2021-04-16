@@ -1,13 +1,19 @@
 package main.java.x;
+import javafx.scene.Group;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import main.scala.controller.Controller;
 import main.scala.parser.Interpreter;
 
 
 public class FxController {
-    Interpreter interpreter;
+    Controller controller;
+
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
 
@@ -15,7 +21,13 @@ public class FxController {
     private URL location;
 
     @FXML
-    private TextArea logTextArea;
+    private Pane drawingPane;
+
+    @FXML
+    private Canvas drawingCanvas;
+
+    @FXML
+    private TextArea logTxtArea;
 
     @FXML
     private TextArea codeTxtArea;
@@ -27,11 +39,11 @@ public class FxController {
     private Button clearButton;
 
     public FxController() {
-       interpreter = new Interpreter();
     }
 
     @FXML
     void initialize() {
+    controller = new Controller(drawingCanvas, logTxtArea);
 
     // Prefilled with example
     codeTxtArea.setText(
@@ -46,7 +58,7 @@ public class FxController {
 
     @FXML
     private void console() {
-        var instructions = interpreter.parse(codeTxtArea.getText());
+        controller.updateUI(codeTxtArea.getText());
     }
 
 }
