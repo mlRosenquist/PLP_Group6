@@ -1,5 +1,6 @@
 package main.scala.models
 
+import javafx.scene.canvas.GraphicsContext
 import main.scala.parser.InstructionsEnum
 
 import scala.util.{Success, Try}
@@ -7,6 +8,9 @@ import scala.util.{Success, Try}
 class Circle(_center: Point, _radius: Int) extends Figure {
   var center = _center;
   var radius = _radius;
+
+  def draw(gc: GraphicsContext): Unit ={
+  }
 }
 object Circle {
   // (CIRCLE (12 12) 3)

@@ -1,8 +1,13 @@
 package main.scala.models
 
+import javafx.scene.canvas.GraphicsContext
+
 class TextAt(_placement: Point, _text: String) extends Miscellaneous {
   var placement = _placement;
   var text = _text;
+
+  def draw(gc: GraphicsContext): Unit ={
+  }
 }
 object TextAt {
   def parse(input: String): Instruction ={

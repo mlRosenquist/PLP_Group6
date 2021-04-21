@@ -1,5 +1,7 @@
 package main.scala.models
 
+import javafx.scene.canvas.GraphicsContext
+
 import scala.util.{Failure, Success, Try}
 
 class Point(_x: Int, _y: Int) extends Instruction {
@@ -7,6 +9,9 @@ class Point(_x: Int, _y: Int) extends Instruction {
   var y = _y
   def this(){
     this(0,0);
+  }
+
+  def draw(gc: GraphicsContext): Unit ={
   }
 }
 

@@ -1,5 +1,6 @@
 package main.scala.models
 
+import javafx.scene.canvas.GraphicsContext
 import main.scala.parser.InstructionsEnum
 
 import java.awt.Color
@@ -9,6 +10,9 @@ import scala.collection.mutable.ArrayBuffer
 class Draw(_figures: ArrayBuffer[Instruction], _color: Color) extends Miscellaneous {
   var figures = _figures;
   var color = _color;
+
+  def draw(gc: GraphicsContext): Unit ={
+  }
 }
 object Draw {
   // (DRAW green (LINE (7 8) (12 12)) (LINE (7 8) (12 12)) (LINE (7 8) (12 12)))

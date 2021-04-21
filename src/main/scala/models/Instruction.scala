@@ -1,5 +1,8 @@
 package main.scala.models
 
-class Instruction {
+import javafx.scene.canvas.GraphicsContext
 
+abstract class Instruction {
+
+  def draw(gc: GraphicsContext)
 }

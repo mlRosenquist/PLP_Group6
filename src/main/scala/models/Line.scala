@@ -1,8 +1,14 @@
 package main.scala.models
 
+import javafx.scene.canvas.GraphicsContext
+
 class Line(_start: Point, _end: Point) extends Figure {
   var start = _start
   var end = _end
+
+  def draw(gc: GraphicsContext): Unit ={
+    gc.strokeLine(start.x, start.y, end.x, end.y);
+  }
 }
 object Line {
   def parse(input: String): Instruction ={
@@ -15,5 +21,4 @@ object Line {
       case (_, _) => new Error("Invalid Line: " + input);
     }
   }
-
 }

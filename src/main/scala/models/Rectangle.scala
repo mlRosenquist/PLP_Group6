@@ -1,8 +1,14 @@
 package main.scala.models
 
+import javafx.scene.canvas.GraphicsContext
+
 class Rectangle(_bottomLeft: Point, _upperRight: Point) extends Figure {
   var bottomLeft = _bottomLeft
   var upperRight = _upperRight
+
+  def draw(gc: GraphicsContext): Unit ={
+    gc.strokeRect(bottomLeft.x, bottomLeft.y, upperRight.x, upperRight.y);
+  }
 }
 object Rectangle {
   def parse(input: String): Instruction ={
