@@ -1,5 +1,6 @@
 package main.scala.controller
 
+import javafx.application.Platform
 import javafx.embed.swing.SwingFXUtils
 import javafx.scene.canvas.Canvas
 import javafx.scene.control.TextArea
@@ -8,7 +9,7 @@ import javafx.scene.layout.Pane
 import javafx.scene.paint.Color
 import main.scala.drawer.Drawer
 import main.scala.parser.Interpreter
-import main.scala.models.{BoundingBox, Error, Instruction}
+import main.scala.models.{BoundingBox, Error, Instruction, Point}
 
 import java.awt.Image
 import java.awt.image.BufferedImage
@@ -18,10 +19,14 @@ class Controller(_pane: Pane, _canvas: ImageView, _logTxtArea: TextArea) {
   var canvas = _canvas;
   var textArea = _logTxtArea;
   var interpreter = new Interpreter();
-  var drawer = new Drawer(_canvas);
   var pane = _pane;
+  var drawer: Drawer = null;
+
+  Platform.runLater(() => drawer = new Drawer(_canvas, _pane.getWidth.toInt, _pane.getHeight.toInt, new BoundingBox(new Point(0,0), new Point(10,10))))
+
 
   def updateUI(_input: String) = {
+
     var instructions = interpreter.parse(_input);
 
     var drawings = ArrayBuffer[Instruction]();

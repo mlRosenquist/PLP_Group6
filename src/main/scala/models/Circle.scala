@@ -1,6 +1,7 @@
 package main.scala.models
 
 import javafx.scene.canvas.GraphicsContext
+import main.scala.drawer.CoordinateSystem
 import main.scala.parser.InstructionsEnum
 
 import java.awt.image.BufferedImage
@@ -11,7 +12,7 @@ class Circle(_center: Point, _radius: Int) extends Figure {
   var center = _center;
   var radius = _radius;
 
-  def draw(image: BufferedImage, coordsMapping: mutable.Map[Point, Point]): Unit ={
+  def draw(_coordinateSystem: CoordinateSystem): Unit ={
   }
 }
 object Circle {

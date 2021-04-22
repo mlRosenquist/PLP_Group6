@@ -1,6 +1,7 @@
 package main.scala.models
 
 import javafx.scene.canvas.GraphicsContext
+import main.scala.drawer.CoordinateSystem
 import main.scala.parser.InstructionsEnum
 
 import java.awt.Color
@@ -12,7 +13,7 @@ class Fill(_figure: Instruction, _color: Color) extends Miscellaneous {
   var figure = _figure;
   var color = _color;
 
-  def draw(image: BufferedImage, coordsMapping: mutable.Map[Point, Point]): Unit ={
+  def draw(_coordinateSystem: CoordinateSystem): Unit ={
   }
 }
 object Fill {

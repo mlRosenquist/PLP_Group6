@@ -4,8 +4,8 @@ import javafx.scene.canvas.GraphicsContext
 
 import java.awt.image.BufferedImage
 import scala.collection.mutable
-
+import main.scala.drawer.CoordinateSystem
 abstract class Instruction {
 
-  def draw(image: BufferedImage, coordsMapping: mutable.Map[Point, Point]): Unit
+  def draw(_coordinateSystem: CoordinateSystem): Unit
 }
