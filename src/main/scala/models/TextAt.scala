@@ -1,8 +1,16 @@
 package main.scala.models
 
+import javafx.scene.canvas.GraphicsContext
+
+import java.awt.image.BufferedImage
+import scala.collection.mutable
+
 class TextAt(_placement: Point, _text: String) extends Miscellaneous {
   var placement = _placement;
   var text = _text;
+
+  def draw(image: BufferedImage, coordsMapping: mutable.Map[Point, Point]): Unit ={
+  }
 }
 object TextAt {
   def parse(input: String): Instruction ={

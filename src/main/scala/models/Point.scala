@@ -1,5 +1,9 @@
 package main.scala.models
 
+import javafx.scene.canvas.GraphicsContext
+
+import java.awt.image.BufferedImage
+import scala.collection.mutable
 import scala.util.{Failure, Success, Try}
 
 class Point(_x: Int, _y: Int) extends Instruction {
@@ -7,6 +11,9 @@ class Point(_x: Int, _y: Int) extends Instruction {
   var y = _y
   def this(){
     this(0,0);
+  }
+
+  def draw(image: BufferedImage, coordsMapping: mutable.Map[Point, Point]): Unit ={
   }
 }
 

@@ -1,5 +1,9 @@
 package main.scala.models
 
+import javafx.scene.canvas.GraphicsContext
+
+import java.awt.image.BufferedImage
+import scala.collection.mutable
 import scala.util.{Failure, Success, Try}
 
 class BoundingBox(_bottomLeft: Point, _upperRight: Point) extends Figure {
@@ -8,6 +12,9 @@ class BoundingBox(_bottomLeft: Point, _upperRight: Point) extends Figure {
 
   def this(){
     this(new Point(0,0), new Point(0,0));
+  }
+
+  def draw(image: BufferedImage, coordsMapping: mutable.Map[Point, Point]): Unit ={
   }
 }
 object BoundingBox {

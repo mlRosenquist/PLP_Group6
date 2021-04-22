@@ -1,5 +1,5 @@
 package main.scala.models
 
-class Miscellaneous extends Instruction {
+trait Miscellaneous extends Instruction {
 
 }
