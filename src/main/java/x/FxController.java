@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import main.scala.controller.Controller;
@@ -24,7 +25,7 @@ public class FxController {
     private Pane drawingPane;
 
     @FXML
-    private Canvas drawingCanvas;
+    private ImageView drawingCanvas;
 
     @FXML
     private TextArea logTxtArea;
@@ -43,12 +44,11 @@ public class FxController {
 
     @FXML
     void initialize() {
-    controller = new Controller(drawingCanvas, logTxtArea);
-
+    controller = new Controller(drawingPane, drawingCanvas, logTxtArea);
     // Prefilled with example
     codeTxtArea.setText(
-                    "(BOUNDING-BOX (0 0) (16 12))\n" +
-                    "(LINE (7 8) (12 12))\n" +
+                    "(BOUNDING-BOX (0 0) (8 8))\n" +
+                    "(LINE (0 0) (8 8))\n" +
                     "(RECTANGLE (1 1) (2 2))\n" +
                     "(CIRCLE (12 12) 3)\n" +
                     "(TEXT-AT (1 1) Hello)\n" +

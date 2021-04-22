@@ -4,14 +4,16 @@ import javafx.scene.canvas.GraphicsContext
 import main.scala.parser.InstructionsEnum
 
 import java.awt.Color
+import java.awt.image.BufferedImage
 import java.lang.reflect.Field
+import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
 class Draw(_figures: ArrayBuffer[Instruction], _color: Color) extends Miscellaneous {
   var figures = _figures;
   var color = _color;
 
-  def draw(gc: GraphicsContext): Unit ={
+  def draw(image: BufferedImage, coordsMapping: mutable.Map[Point, Point]): Unit ={
   }
 }
 object Draw {
@@ -38,7 +40,5 @@ object Draw {
       case e: Exception =>
         new Error("Invalid Draw: " + input)
     }
-
-
   }
 }

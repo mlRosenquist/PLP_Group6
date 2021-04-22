@@ -4,13 +4,15 @@ import javafx.scene.canvas.GraphicsContext
 import main.scala.parser.InstructionsEnum
 
 import java.awt.Color
+import java.awt.image.BufferedImage
+import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
 class Fill(_figure: Instruction, _color: Color) extends Miscellaneous {
   var figure = _figure;
   var color = _color;
 
-  def draw(gc: GraphicsContext): Unit ={
+  def draw(image: BufferedImage, coordsMapping: mutable.Map[Point, Point]): Unit ={
   }
 }
 object Fill {

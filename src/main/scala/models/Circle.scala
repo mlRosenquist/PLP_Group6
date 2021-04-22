@@ -3,13 +3,15 @@ package main.scala.models
 import javafx.scene.canvas.GraphicsContext
 import main.scala.parser.InstructionsEnum
 
+import java.awt.image.BufferedImage
+import scala.collection.mutable
 import scala.util.{Success, Try}
 
 class Circle(_center: Point, _radius: Int) extends Figure {
   var center = _center;
   var radius = _radius;
 
-  def draw(gc: GraphicsContext): Unit ={
+  def draw(image: BufferedImage, coordsMapping: mutable.Map[Point, Point]): Unit ={
   }
 }
 object Circle {
