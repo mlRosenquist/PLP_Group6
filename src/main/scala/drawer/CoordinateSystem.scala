@@ -1,13 +1,13 @@
 package main.scala.drawer
 
-import main.scala.models.{BoundingBox, Point}
+import main.scala.models.{BoundingBox, Point, TextAt}
 
 import java.awt.Color
 import java.awt.image.BufferedImage
 
 class CoordinateSystem(_width: Int, _height: Int, _boundingBox: BoundingBox) {
-  val x_lines = (_boundingBox.upperRight.x - _boundingBox.bottomLeft.x).toInt - 1;
-  val y_lines = (_boundingBox.upperRight.y - _boundingBox.bottomLeft.y).toInt - 1;
+  val x_lines = (_boundingBox.upperRight.x - _boundingBox.bottomLeft.x).toInt;
+  val y_lines = (_boundingBox.upperRight.y - _boundingBox.bottomLeft.y).toInt;
 
   var x_spacing = ((_width.toDouble)/x_lines.toDouble) - 1 ;
   var y_spacing = ((_height.toDouble/y_lines.toDouble)) - 1 ;
@@ -41,9 +41,9 @@ class CoordinateSystem(_width: Int, _height: Int, _boundingBox: BoundingBox) {
     }
   }
 
-  def getPixelsFromCoordinate(p: Point): Point ={
-    var x_pixel = p.x * x_spacing;
-    var y_pixel = _height - (p.y * y_spacing).toInt - 1;
+  def  getPixelsFromCoordinate(p: Point): Point ={
+    var x_pixel = (p.x - _boundingBox.bottomLeft.x) * x_spacing;
+    var y_pixel = _height - ((p.y-_boundingBox.bottomLeft.y) * y_spacing).toInt - 1;
 
     if(x_pixel >= _width || x_pixel < 0 || y_pixel >= _height || y_pixel < 0)
       return null;

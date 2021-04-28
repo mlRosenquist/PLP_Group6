@@ -20,13 +20,15 @@ class Drawer(_imageView: ImageView, _paneWidth: Int, _paneHeight: Int,_boundingB
   imageView.setImage(SwingFXUtils.toFXImage(coordinateSystem.bufferedImage, null));
 
   def drawInstructions(_paneWidth: Int, _paneHeight: Int,_boundingBox: BoundingBox, _instructions: ArrayBuffer[Instruction]): Unit ={
-    if(coordinateSystem.equals(null))
-      coordinateSystem = new CoordinateSystem(_paneWidth, _paneHeight, _boundingBox);
+    coordinateSystem = new CoordinateSystem(_paneWidth, _paneHeight, _boundingBox);
 
     instructions = instructions.concat(_instructions);
 
     instructions.foreach(i => i.draw(coordinateSystem));
 
+    // Draw Text at origin
+    var origin = new TextAt(_boundingBox.bottomLeft,"(" + _boundingBox.bottomLeft.x.toInt + "," + _boundingBox.bottomLeft.y.toInt + ")");
+    origin.draw(coordinateSystem);
     imageView.setImage(SwingFXUtils.toFXImage(coordinateSystem.bufferedImage, null));
   }
 }

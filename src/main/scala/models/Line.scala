@@ -3,6 +3,7 @@ package main.scala.models
 import javafx.scene.canvas.GraphicsContext
 import main.scala.drawer.CoordinateSystem
 
+import java.awt.{Color, Graphics2D}
 import java.awt.image.BufferedImage
 import scala.collection.mutable
 

@@ -50,4 +50,8 @@ class Controller(_pane: Pane, _canvas: ImageView, _logTxtArea: TextArea) {
       drawer.drawInstructions(pane.getWidth.toInt, pane.getHeight.toInt, boundingBox.asInstanceOf[BoundingBox], drawings)
     };
   }
+
+  def clear() = {
+    drawer = new Drawer(_canvas, _pane.getWidth.toInt, _pane.getHeight.toInt, new BoundingBox(new Point(0,0), new Point(10,10)));
+  }
 }

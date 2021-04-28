@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext
 import main.scala.drawer.CoordinateSystem
 import main.scala.parser.InstructionsEnum
 
-import java.awt.Color
+import java.awt.{Color, Graphics2D}
 import java.awt.image.BufferedImage
 import java.lang.reflect.Field
 import scala.collection.mutable
@@ -12,9 +12,11 @@ import scala.collection.mutable.ArrayBuffer
 
 class Draw(_figures: ArrayBuffer[Instruction], _color: Color) extends Miscellaneous {
   var figures = _figures;
-  var color = _color;
+  this.color = _color
 
   def draw(_coordinateSystem: CoordinateSystem): Unit ={
+    figures.foreach(f => f.color = color);
+    figures.foreach(f => f.draw(_coordinateSystem));
   }
 }
 object Draw {
@@ -32,7 +34,6 @@ object Draw {
           case s if i.startsWith(InstructionsEnum.Line.toString) => instructions.addOne(Line.parse(i + " " + splitInput(splitInput.indexOf(i) + 1) + " " + splitInput(splitInput.indexOf(i) + 2) + " " + splitInput(splitInput.indexOf(i) + 3) + " " + splitInput(splitInput.indexOf(i) + 4) ))
           case s if i.startsWith(InstructionsEnum.Rectangle.toString) => instructions.addOne(Rectangle.parse(i + " " + splitInput(splitInput.indexOf(i) + 1) + " " + splitInput(splitInput.indexOf(i) + 2) + " " + splitInput(splitInput.indexOf(i) + 3) + " " + splitInput(splitInput.indexOf(i) + 4) ))
           case s if i.startsWith(InstructionsEnum.TextAt.toString) => instructions.addOne(TextAt.parse(i + " " + splitInput(splitInput.indexOf(i) + 1) + " " + splitInput(splitInput.indexOf(i) + 2) + " " + splitInput(splitInput.indexOf(i) + 3)))
-          case s if i.startsWith(InstructionsEnum.BoundingBox.toString) => instructions.addOne(BoundingBox.parse(i + " " + splitInput(splitInput.indexOf(i) + 1) + " " + splitInput(splitInput.indexOf(i) + 2) + " " + splitInput(splitInput.indexOf(i) + 3) + " " + splitInput(splitInput.indexOf(i) + 4)))
           case _  =>      }
       })
       new Draw(instructions, color);

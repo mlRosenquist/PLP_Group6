@@ -4,16 +4,75 @@ import javafx.scene.canvas.GraphicsContext
 import main.scala.drawer.CoordinateSystem
 import main.scala.parser.InstructionsEnum
 
-import java.awt.Color
+import java.awt.{Color, Graphics2D}
 import java.awt.image.BufferedImage
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
 class Fill(_figure: Instruction, _color: Color) extends Miscellaneous {
   var figure = _figure;
-  var color = _color;
+  this.color = _color;
 
   def draw(_coordinateSystem: CoordinateSystem): Unit ={
+    var g = _coordinateSystem.bufferedImage.createGraphics();
+    g.setColor(this.color);
+
+    figure match {
+      case (rec: Rectangle) => {
+        var pix_botLeft = _coordinateSystem.getPixelsFromCoordinate(rec.bottomLeft);
+        var pix_upRight = _coordinateSystem.getPixelsFromCoordinate(rec.upperRight);
+
+        (pix_botLeft, pix_upRight) match {
+          case (p1: Point, p2: Point) => {
+            for(i <- (pix_botLeft.x.toInt + 1  to pix_upRight.x.toInt - 1)){
+              for(j <- (pix_upRight.y.toInt +1 to pix_botLeft.y.toInt - 1)){
+                _coordinateSystem.drawPixel(i, j, this.color);
+              }
+            }
+          }
+          case (null, p2: Point) => {
+            for(i <- (1 to pix_upRight.x.toInt - 1)){
+              for(j <- (pix_upRight.y.toInt +1 to _coordinateSystem.bufferedImage.getHeight-2)){
+                _coordinateSystem.drawPixel(i, j, this.color);
+              }
+            }
+          }
+          case (p1: Point, null) => {
+            for(i <- (pix_botLeft.x.toInt + 1 to _coordinateSystem.bufferedImage.getWidth)){
+              for(j <- (0 to pix_botLeft.y.toInt -1)){
+                _coordinateSystem.drawPixel(i, j, this.color);
+              }
+            }
+          }
+          case (_, _) =>
+        }
+
+      }
+      case (cir: Circle) => {
+        var pix_center = _coordinateSystem.getPixelsFromCoordinate(cir.center);
+
+        var pix_center_moved_radius = _coordinateSystem.getPixelsFromCoordinate(new Point(cir.center.x+ cir.radius, cir.center.y));
+
+        var pix_x_radius = (cir.radius * _coordinateSystem.x_spacing);
+        var pix_y_radius = (cir.radius * _coordinateSystem.y_spacing);
+
+        var pix_x_min = pix_center.x - pix_x_radius;
+        var pix_x_max = pix_center.x + pix_x_radius;
+
+        var pix_y_min = pix_center.y - pix_y_radius;
+        var pix_y_max = pix_center.y + pix_y_radius;
+
+
+        for( y <- (-pix_x_radius.toInt to pix_x_radius.toInt)){
+          for(x <- (-pix_x_radius.toInt to pix_x_radius.toInt)){
+            if(x*x+y*y <= pix_x_radius*pix_x_radius+pix_x_radius)
+              _coordinateSystem.drawPixel(x+pix_center.x.toInt, y+pix_center.y.toInt, color);
+          }
+        }
+      }
+      case _ =>
+    }
+
   }
 }
 object Fill {
@@ -23,16 +82,12 @@ object Fill {
       var field = Class.forName("java.awt.Color").getField(splitInput(1));
       var color = field.get(null).asInstanceOf[Color]
 
+      return splitInput(2) match {
+        case s if s.startsWith(InstructionsEnum.Circle.toString) => new Fill(Circle.parse(s + " " + splitInput(3) + " " + splitInput(4) + " " + splitInput(5) ), color);
+        case s if s.startsWith(InstructionsEnum.Rectangle.toString) => new Fill(Rectangle.parse(s + " " + splitInput(3) + " " + splitInput(4) + " " + splitInput(5) + " " + splitInput(6) ), color);
+        case _ => new Error("Invalid Fill: " + input)
+      }
 
-      /*splitInput.foreach(i => { i match {
-        case s if i.startsWith(InstructionsEnum.Circle.toString) => return new Fill(Circle.parse(i + " " + splitInput(splitInput.indexOf(i) + 1) + " " + splitInput(splitInput.indexOf(i) + 2) + " " + splitInput(splitInput.indexOf(i) + 3) ), color);
-        case s if i.startsWith(InstructionsEnum.Line.toString) => return new Fill(Line.parse(i + " " + splitInput(splitInput.indexOf(i) + 1) + " " + splitInput(splitInput.indexOf(i) + 2) + " " + splitInput(splitInput.indexOf(i) + 3) + " " + splitInput(splitInput.indexOf(i) + 4)), color);
-        case s if i.startsWith(InstructionsEnum.Rectangle.toString) => return new Fill(Rectangle.parse(i + " " + splitInput(splitInput.indexOf(i) + 1) + " " + splitInput(splitInput.indexOf(i) + 2) + " " + splitInput(splitInput.indexOf(i) + 3) + " " + splitInput(splitInput.indexOf(i) + 4) ), color);
-        case s if i.startsWith(InstructionsEnum.TextAt.toString) => return new Fill(TextAt.parse(i + " " + splitInput(splitInput.indexOf(i) + 1) + " " + splitInput(splitInput.indexOf(i) + 2) + " " + splitInput(splitInput.indexOf(i) + 3)), color)
-        case s if i.startsWith(InstructionsEnum.BoundingBox.toString) => return new Fill(BoundingBox.parse(i + " " + splitInput(splitInput.indexOf(i) + 1) + " " + splitInput(splitInput.indexOf(i) + 2) + " " + splitInput(splitInput.indexOf(i) + 3) + " " + splitInput(splitInput.indexOf(i) + 4)), color)
-        case _  => }
-      })*/
-      return new Fill(null, color);
     } catch {
       case e: Exception =>
         new Error("Invalid Draw: " + input)
