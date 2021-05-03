@@ -31,8 +31,6 @@ class Line(_start: Point, _end: Point, bm:RgbBitmap) extends Figure {
       def hasNext: Boolean = sx*x <= sx*end.x && sy*y <= sy*end.y
     }
   }
-
-
 }
 object Line {
   def parse(input: String): Instruction ={
@@ -46,5 +44,4 @@ object Line {
       case (_, _) => new Error("Invalid Line: " + input);
     }
   }
-
 }

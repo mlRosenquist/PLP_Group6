@@ -1,13 +1,21 @@
 package main.scala.models
 
+import javafx.scene.canvas.GraphicsContext
+import main.scala.drawer.CoordinateSystem
+
+import java.awt.{Color, Graphics2D}
+import java.awt.image.BufferedImage
+import scala.collection.mutable
 import scala.util.{Failure, Success, Try}
 
 class BoundingBox(_bottomLeft: Point, _upperRight: Point) extends Figure {
   var bottomLeft = _bottomLeft
   var upperRight = _upperRight
-
   def this(){
     this(new Point(0,0), new Point(0,0));
+  }
+
+  def draw(_coordinateSystem: CoordinateSystem): Unit ={
   }
 }
 object BoundingBox {

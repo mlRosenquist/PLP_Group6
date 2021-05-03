@@ -1,5 +1,7 @@
 package main.scala.models
 
-class Miscellaneous extends Instruction {
+import java.awt.Color
+
+trait Miscellaneous extends Instruction {
 
 }

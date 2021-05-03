@@ -1,8 +1,10 @@
 package main.scala.models
 
+import javafx.scene.canvas.GraphicsContext
+
 import java.awt.Color
 
-class Figure extends Instruction {
-  var color = Color.BLACK;
+trait Figure extends Instruction {
+
   var fillColor = null;
 }

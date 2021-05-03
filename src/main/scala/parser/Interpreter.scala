@@ -2,6 +2,8 @@ package main.scala.parser
 
 import main.scala.models._
 
+import scala.collection.mutable.ArrayBuffer
+
 
 object InstructionsEnum extends Enumeration{
   type InstructionsEnum = Value
@@ -16,9 +18,16 @@ object InstructionsEnum extends Enumeration{
 }
 class Interpreter {
 
-  def parse(instructions: String) : Array[Instruction] = {
+  def parse(instructions: String) : ArrayBuffer[Instruction] = {
 
     var instructions_split = instructions.split("\n")
+
+    if(!instructions_split(0).replace("(", "").replace(")", "").startsWith(InstructionsEnum.BoundingBox.toString))
+      {
+        var array = new ArrayBuffer[Instruction](1);
+        array.addOne(new Error("Invalid Command (First object must be valid Bounding Box):"));
+        return array;
+      }
 
     return instructions_split
         // Remove Brackets
@@ -50,6 +59,6 @@ class Interpreter {
               case default => {
                 new Error("Invalid command: " + i)
               }
-            })
+            }).to(ArrayBuffer)
   }
 }
