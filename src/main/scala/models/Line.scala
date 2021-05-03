@@ -1,30 +1,46 @@
 package main.scala.models
+import main.scala.RgbBitmap.RgbBitmap
 
-import javafx.scene.canvas.GraphicsContext
-import main.scala.drawer.CoordinateSystem
+class Line(_start: Point, _end: Point, bm:RgbBitmap) extends Figure {
+  val start: Point = _start
+  val end: Point = _end
 
-import java.awt.{Color, Graphics2D}
-import java.awt.image.BufferedImage
-import scala.collection.mutable
+  def draw(start: Point, end: Point): Iterator[(Int, Int)] = {
+    import scala.math.abs
 
-class Line(_start: Point, _end: Point) extends Figure {
-  var start = _start
-  var end = _end
+    val dx = abs(end.x - start.x)
+    val dy = abs(end.y - start.y)
 
-  def draw(_coordinateSystem: CoordinateSystem): Unit ={
+    val sx = if (start.x < end.x) 1 else -1
+    val sy = if (start.y < end.y) 1 else -1
 
-    var p1 = _coordinateSystem.getPixelsFromCoordinate(start);
-    var p2 = _coordinateSystem.getPixelsFromCoordinate(end);
+    new Iterator[(Int, Int)] {
+      var (x, y) = (start.x, start.y)
+      var err: Int = dx - dy
+
+      def next: (Int, Int) = {
+        val omitted = (x, y)
+        val e2 = 2 * err
+        if (e2 > -dy) {
+          err -= dy
+          x += sx
+        }
+        omitted
+      }
+
+      def hasNext: Boolean = sx*x <= sx*end.x && sy*y <= sy*end.y
+    }
   }
 }
 object Line {
   def parse(input: String): Instruction ={
-    var splitInput = input.split(" ");
-    var start = Point.TryParse(splitInput(1), splitInput(2));
-    var end = Point.TryParse(splitInput(3), splitInput(4));
+    val splitInput = input.split(" ")
+    val start = Point.TryParse(splitInput(1), splitInput(2))
+    val end = Point.TryParse(splitInput(3), splitInput(4))
 
     (start, end) match {
-      case (p1: Point, p2: Point) => new Line(p1, p2);
+        //TODO: Reference the bounding box size for RgbBitmap
+      case (p1: Point, p2: Point) => new Line(p1, p2, new RgbBitmap(100,100));
       case (_, _) => new Error("Invalid Line: " + input);
     }
   }
