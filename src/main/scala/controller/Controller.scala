@@ -22,8 +22,7 @@ class Controller(_pane: Pane, _canvas: ImageView, _logTxtArea: TextArea) {
   var pane = _pane;
   var drawer: Drawer = null;
 
-  Platform.runLater(() => drawer = new Drawer(_canvas, _pane.getWidth.toInt, _pane.getHeight.toInt, new BoundingBox(new Point(0,0), new Point(10,10))))
-
+  Platform.runLater(() => drawer = new Drawer(_canvas, _pane.getWidth.toInt, _pane.getHeight.toInt, new BoundingBox(new Point(0,0), new Point(10,10), true)))
 
   def updateUI(_input: String) = {
 
@@ -52,6 +51,6 @@ class Controller(_pane: Pane, _canvas: ImageView, _logTxtArea: TextArea) {
   }
 
   def clear() = {
-    drawer = new Drawer(_canvas, _pane.getWidth.toInt, _pane.getHeight.toInt, new BoundingBox(new Point(0,0), new Point(10,10)));
+    drawer = new Drawer(_canvas, _pane.getWidth.toInt, _pane.getHeight.toInt, new BoundingBox(new Point(0,0), new Point(10,10), true));
   }
 }

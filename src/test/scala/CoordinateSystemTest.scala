@@ -13,7 +13,7 @@ import scala.collection.mutable
 
 
 class CoordinateSystemTest extends AnyFlatSpec with Matchers  {
-  var uut = new CoordinateSystem(1000, 1000, new BoundingBox(new Point(0,0), new Point(8,8)));
+  var uut = new CoordinateSystem(1000, 1000, new BoundingBox(new Point(0,0), new Point(8,8), true));
 
   "Getting a point inside the bounding" should "give a valid pixel point" in {
 

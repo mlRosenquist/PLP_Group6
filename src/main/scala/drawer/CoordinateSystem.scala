@@ -20,18 +20,22 @@ class CoordinateSystem(_width: Int, _height: Int, _boundingBox: BoundingBox) {
   g.setBackground(java.awt.Color.lightGray);
   g.clearRect(0, 0, _width, _height)
 
-  // Draw horizontal lines
-  for(i <- (0 to _height-1)){
-    for(j <- 0 to x_lines) {
-      drawPixel((x_spacing * j).toInt , i , Color.BLACK);
-    };
-  }
+  if(_boundingBox.showGrid == true) {
 
-  // Draw vertical lines
-  for(i <- (0 to _width-1).reverse){
-    for(j <- 0 to y_lines) {
-      drawPixel(i, _height - (y_spacing * j).toInt -1, Color.BLACK)
-    };
+
+    // Draw horizontal lines
+    for (i <- (0 to _height - 1)) {
+      for (j <- 0 to x_lines) {
+        drawPixel((x_spacing * j).toInt, i, Color.BLACK);
+      };
+    }
+
+    // Draw vertical lines
+    for (i <- (0 to _width - 1).reverse) {
+      for (j <- 0 to y_lines) {
+        drawPixel(i, _height - (y_spacing * j).toInt - 1, Color.BLACK)
+      };
+    }
   }
 
   def drawPixel(x: Int, y: Int, color: Color): Unit ={

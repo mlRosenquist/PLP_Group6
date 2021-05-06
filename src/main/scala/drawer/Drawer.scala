@@ -14,17 +14,28 @@ import scala.collection.mutable.ArrayBuffer
 
 class Drawer(_imageView: ImageView, _paneWidth: Int, _paneHeight: Int,_boundingBox: BoundingBox) {
   var imageView = _imageView;
-  var instructions: ArrayBuffer[Instruction] = ArrayBuffer();
+  var oldInstructions: ArrayBuffer[Instruction] = ArrayBuffer();
   var coordinateSystem: CoordinateSystem = new CoordinateSystem(_paneWidth, _paneHeight, _boundingBox);
 
   imageView.setImage(SwingFXUtils.toFXImage(coordinateSystem.bufferedImage, null));
 
-  def drawInstructions(_paneWidth: Int, _paneHeight: Int,_boundingBox: BoundingBox, _instructions: ArrayBuffer[Instruction]): Unit ={
+  def drawInstructions(_paneWidth: Int, _paneHeight: Int,_boundingBox: BoundingBox, _newInstructions: ArrayBuffer[Instruction]): Unit ={
     coordinateSystem = new CoordinateSystem(_paneWidth, _paneHeight, _boundingBox);
 
-    instructions = instructions.concat(_instructions);
+    oldInstructions.foreach(i => {
+      if(i.color == java.awt.Color.CYAN){
+        i.color = java.awt.Color.BLACK;
+      }
+    }
+      );
+    _newInstructions.foreach(i => {
+      if(i.color == java.awt.Color.BLACK){
+        i.color = java.awt.Color.CYAN;
+      }
+    });
 
-    instructions.foreach(i => i.draw(coordinateSystem));
+    oldInstructions = oldInstructions.concat(_newInstructions);
+    oldInstructions.foreach(i => i.draw(coordinateSystem));
 
     // Draw Text at origin
     var origin = new TextAt(_boundingBox.bottomLeft,"(" + _boundingBox.bottomLeft.x.toInt + "," + _boundingBox.bottomLeft.y.toInt + ")");
