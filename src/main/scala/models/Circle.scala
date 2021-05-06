@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext
 import main.scala.drawer.CoordinateSystem
 import main.scala.parser.InstructionsEnum
 
-import java.awt.Color
+import java.awt.{Color, Graphics2D}
 import java.awt.image.BufferedImage
 import scala.collection.mutable
 import scala.util.{Success, Try}

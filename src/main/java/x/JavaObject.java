@@ -20,7 +20,8 @@ public class JavaObject extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("FigureDrawerMain.fxml")));
         primaryStage.setTitle("DrawingApp");
-        primaryStage.setScene(new Scene(root, 720, 480));
+        primaryStage.setScene(new Scene(root, 1200, 900));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

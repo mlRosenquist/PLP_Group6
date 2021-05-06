@@ -3,17 +3,21 @@ package main.scala.models
 import javafx.scene.canvas.GraphicsContext
 import main.scala.drawer.CoordinateSystem
 
+import java.awt.{Color, Graphics2D}
 import java.awt.image.BufferedImage
 import scala.collection.mutable
 
-class TextAt(_placement: Point, _text: String) extends Miscellaneous {
+class TextAt(_placement: Point, _text: String) extends Figure {
   var placement = _placement;
   var text = _text;
 
   def draw(_coordinateSystem: CoordinateSystem): Unit ={
     val g = _coordinateSystem.bufferedImage.createGraphics();
+    g.setColor(this.color);
     val p = _coordinateSystem.getPixelsFromCoordinate(placement);
-    g.drawString(text, p.x.toInt, p.y.toInt);
+    if(p != null) {
+      g.drawString(text, p.x.toInt, p.y.toInt)
+    };
   }
 }
 object TextAt {
