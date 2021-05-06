@@ -18,7 +18,7 @@ class Circle(_center: Point, _radius: Int) extends Figure {
     var circleRadius = (radius * _coordinateSystem.x_spacing)
     drawMidpointCircle(centerPoint.x, centerPoint.y, circleRadius, _coordinateSystem)
   }
-
+  // https://www.tutorialspoint.com/computer_graphics/circle_generation_algorithm.htm and https://www.thecrazyprogrammer.com/2016/12/bresenhams-midpoint-circle-algorithm-c-c.html
   def drawMidpointCircle(x0: Double, y0: Double, r: Double, coordinateSystem: CoordinateSystem): Unit ={
     var x = r
     var y = 0.0
