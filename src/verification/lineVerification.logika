@@ -1,0 +1,68 @@
+import org.sireum.logika._
+
+// https://github.com/sireum/v3-logika-examples/blob/release/src/programming/auto/function-3.logika
+def absValue(x: Z): Z = {
+  l"""{ requires  x != 0
+        ensures   result > 0           }"""
+
+  var ans: Z = 0
+  if (x < 0) {
+    ans = -x
+  } else {
+    ans = x
+  }
+  return ans
+}
+
+val n: Z = readInt()
+if (n != 0) {
+  val m: Z = absValue(n)
+  assert(m > 0)
+}
+
+// http://logika.sireum.org/doc/03-language/programming/index.html
+def lineVerification(x0: Z, y0: Z, x1: Z, y1: Z): Z = {
+  l"""{  requires x0 != x1 & y0 != y1
+         ensures result == (x1 + y1)     }"""
+
+    var x: Z = x0
+    var y: Z = y0
+    var dx: Z = x1 - x0
+    var dy: Z = y1 - y0
+    var p: Z = 2 * dy - dx
+
+    while (x < x1) {
+        l"""{  //  loop-invariant must be true each time you go to check the loop condition
+              modifies x, y, p}"""
+
+        if(p >= 0){
+           y = y + 1
+           p = p + 2 * dy - 2 * dx
+           l"""{
+            1. p >= 0        auto
+           }"""
+
+
+        } else {
+           x = x + 1
+           p = p + 2 * dy
+           l"""{
+            1. p < 0        auto
+           }"""
+        }
+
+      }
+
+      return (x + y)
+
+}
+
+
+val x0: Z = readInt()
+val x1: Z = readInt()
+val y0: Z = readInt()
+val y1: Z = readInt()
+if(x0 != x1 & y0 != y1){
+    val r: Z = lineVerification(x0,y0,x1,y1)
+    assert(r == (x1 + y1))
+}
