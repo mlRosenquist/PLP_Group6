@@ -1,0 +1,40 @@
+PIE CHART:
+(BOUNDING-BOX (0 0) (30 30) F)
+(FILL green (CIRCLE (15 20) 10))
+(DRAW blue (CIRCLE (15 20) 10))
+(DRAW blue (LINE (15 20) (15 10)) (LINE (15 20) (14 30)) (LINE (15 20) (21 28)) (LINE (15 20) (23 26)) (LINE (15 20) (23 14)))
+(DRAW blue (TEXT-AT (3 20) prolog) (TEXT-AT (17 30) Haskell) (TEXT-AT (22 27) Lisp) (TEXT-AT (25 20) Scala) (TEXT-AT (20 11) other))
+(DRAW blue (TEXT-AT (10 20) 49%) (TEXT-AT (16 26) 11%) (TEXT-AT (20 25) 4%) (TEXT-AT (20 20) 20%) (TEXT-AT (17 15) 16%))
+
+
+BAR CHART:
+(BOUNDING-BOX (0 0) (30 30) F)
+(DRAW blue (RECTANGLE (5 1) (25 8)))
+(FILL green (RECTANGLE (5 1) (25 8))
+(DRAW blue (TEXT-AT (5 0) 0) (TEXT-AT (10 0) 5) (TEXT-AT (15 0) 10) (TEXT-AT (20 0) 15))
+(DRAW blue (TEXT-AT (3 2) Scala) (RECTANGLE (5 2) (10 3)) (TEXT-AT (10 2) 5))
+(FILL red (RECTANGLE (5 2) (10 3))
+(DRAW blue (TEXT-AT (3 4) SCALA) (RECTANGLE (5 4) (15 5)) (TEXT-AT (15 4) 10))
+(FILL cyan (RECTANGLE (5 4) (15 5)))
+(DRAW blue (TEXT-AT (3 6) Prolog) (RECTANGLE (5 6) (21 7)) (TEXT-AT (21 6) 16))
+(FILL yellow RECTANGLE (5 6) (21 7)))
+
+BOTH:
+(BOUNDING-BOX (0 0) (30 30) F)
+
+(DRAW blue (RECTANGLE (5 1) (25 8)))
+(FILL green (RECTANGLE (5 1) (25 8))
+(DRAW blue (TEXT-AT (5 0) 0) (TEXT-AT (10 0) 5) (TEXT-AT (15 0) 10) (TEXT-AT (20 0) 15))
+(DRAW blue (TEXT-AT (3 2) Scala) (RECTANGLE (5 2) (10 3)) (TEXT-AT (10 2) 5))
+(FILL red (RECTANGLE (5 2) (10 3))
+(DRAW blue (TEXT-AT (3 4) SCALA) (RECTANGLE (5 4) (15 5)) (TEXT-AT (15 4) 10))
+(FILL cyan (RECTANGLE (5 4) (15 5)))
+(DRAW blue (TEXT-AT (3 6) Prolog) (RECTANGLE (5 6) (21 7)) (TEXT-AT (21 6) 16))
+(FILL yellow RECTANGLE (5 6) (21 7)))
+
+(FILL green (CIRCLE (15 20) 10))
+(DRAW blue (CIRCLE (15 20) 10))
+(DRAW blue (LINE (15 20) (15 10)) (LINE (15 20) (14 30)) (LINE (15 20) (21 28)) (LINE (15 20) (23 26)) (LINE (15 20) (23 14)))
+(DRAW blue (TEXT-AT (3 20) prolog) (TEXT-AT (17 30) Haskell) (TEXT-AT (22 27) Lisp) (TEXT-AT (25 20) Scala) (TEXT-AT (20 11) other))
+(DRAW blue (TEXT-AT (10 20) 49%) (TEXT-AT (16 26) 11%) (TEXT-AT (20 25) 4%) (TEXT-AT (20 20) 20%) (TEXT-AT (17 15) 16%))
+
