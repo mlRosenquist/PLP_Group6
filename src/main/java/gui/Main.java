@@ -1,20 +1,14 @@
-package main.java.x;
+package main.java.gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
-import main.scala.models.Instruction;
-import main.scala.parser.Interpreter;
 
 import java.util.Objects;
 
-public class JavaObject extends Application {
-    public void sayHello() {
-        System.out.println("Hi from Java!");
-    }
-    // sbt -jvm-debug 5005
+public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
