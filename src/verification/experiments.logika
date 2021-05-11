@@ -67,7 +67,7 @@ def lineVerification(x0: Z, y0: Z, x1: Z, y1: Z): Z = {
       }
 
       l"""{
-            
+            // Verify result more
       }"""
 
 
