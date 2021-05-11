@@ -1,10 +1,15 @@
 import org.sireum.logika._
 
-
-// http://logika.sireum.org/doc/03-language/programming/index.html
+// http://logika.sireum.org/doc/03-language/programming/index.html and https://www.javatpoint.com/computer-graphics-bresenhams-line-algorithm
 def lineVerification(x0: Z, y0: Z, x1: Z, y1: Z): Z = {
-    l"""{
-        ensures result == (x1 + y1)
+// Goal: iterate with bresenham without drawing the pixels
+    l"""{ requires x0 > 0
+                   x1 > 0
+                   x1 > x0
+                   y0 > 0
+                   y1 > 0
+                   y1 > y0
+          ensures result == (x1 + y1)
     }"""
     var x: Z = x0
     var y: Z = y0
@@ -12,12 +17,6 @@ def lineVerification(x0: Z, y0: Z, x1: Z, y1: Z): Z = {
     var dy: Z = y1 - y0
     var p: Z = 2 * dy - dx
 
-    assume(x0 > 0)
-    assume(y0 > 0)
-    assume(x1 > 0)
-    assume(y1 > 0)
-    assume(y1 > y0)
-    assume(x1 > x0)
 
     l"""{
         1. dx == x1 - x0  premise
@@ -67,6 +66,11 @@ def lineVerification(x0: Z, y0: Z, x1: Z, y1: Z): Z = {
         }
       }
 
+      l"""{
+            
+      }"""
+
+
       return (x + y)
 
 }
@@ -77,6 +81,12 @@ val x1: Z = readInt()
 val y0: Z = readInt()
 val y1: Z = readInt()
 
+assume(x0 > 0)
+assume(y0 > 0)
+assume(x1 > 0)
+assume(y1 > 0)
+assume(y1 > y0)
+assume(x1 > x0)
 
 val r: Z = lineVerification(x0,y0,x1,y1)
 assert(r == (x1 + y1))
