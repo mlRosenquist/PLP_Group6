@@ -26,11 +26,4 @@ class DrawTest extends AnyFlatSpec with Matchers  {
     draw.figures(2) mustBe a[main.scala.models.Circle]
     draw.figures(3) mustBe a[main.scala.models.TextAt]
   }
-
-  "Inputting an invalid line" should "parse to an error object" in {
-
-    var input = "DRAW green LINE d 8 12 12 RECTANGLE 1 1 2 2 CIRCLE 12 12 3 TEXT-AT 1 1 Hello";
-
-    Draw.parse(input) mustBe a[main.scala.models.Error]
-  }
 }

@@ -24,6 +24,7 @@ class Rectangle(_bottomLeft: Point, _upperRight: Point) extends Figure {
     pixels = pixels.concat(l2.draw(_boundingBox));
     pixels = pixels.concat(l3.draw(_boundingBox));
     pixels = pixels.concat(l4.draw(_boundingBox));
+    return pixels;
   }
 }
 object Rectangle {
