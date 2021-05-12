@@ -30,10 +30,22 @@ object Draw {
       var instructions = new ArrayBuffer[Instruction];
 
       splitInput.foreach(i => { i match {
-          case s if i.startsWith(InstructionsEnum.Circle.toString) => instructions.addOne(Circle.parse(i + " " + splitInput(splitInput.indexOf(i) + 1) + " " + splitInput(splitInput.indexOf(i) + 2) + " " + splitInput(splitInput.indexOf(i) + 3) ))
-          case s if i.startsWith(InstructionsEnum.Line.toString) => instructions.addOne(Line.parse(i + " " + splitInput(splitInput.indexOf(i) + 1) + " " + splitInput(splitInput.indexOf(i) + 2) + " " + splitInput(splitInput.indexOf(i) + 3) + " " + splitInput(splitInput.indexOf(i) + 4) ))
-          case s if i.startsWith(InstructionsEnum.Rectangle.toString) => instructions.addOne(Rectangle.parse(i + " " + splitInput(splitInput.indexOf(i) + 1) + " " + splitInput(splitInput.indexOf(i) + 2) + " " + splitInput(splitInput.indexOf(i) + 3) + " " + splitInput(splitInput.indexOf(i) + 4) ))
-          case s if i.startsWith(InstructionsEnum.TextAt.toString) => instructions.addOne(TextAt.parse(i + " " + splitInput(splitInput.indexOf(i) + 1) + " " + splitInput(splitInput.indexOf(i) + 2) + " " + splitInput(splitInput.indexOf(i) + 3)))
+          case s if i.startsWith(InstructionsEnum.Circle.toString) =>{
+            instructions.addOne(Circle.parse(i + " " + splitInput(splitInput.indexOf(i) + 1) + " " + splitInput(splitInput.indexOf(i) + 2) + " " + splitInput(splitInput.indexOf(i) + 3) ))
+            splitInput(splitInput.indexOf(i)) = "USED";
+          }
+          case s if i.startsWith(InstructionsEnum.Line.toString) => {
+            instructions.addOne(Line.parse(i + " " + splitInput(splitInput.indexOf(i) + 1) + " " + splitInput(splitInput.indexOf(i) + 2) + " " + splitInput(splitInput.indexOf(i) + 3) + " " + splitInput(splitInput.indexOf(i) + 4) ))
+            splitInput(splitInput.indexOf(i)) = "USED";
+          }
+          case s if i.startsWith(InstructionsEnum.Rectangle.toString) => {
+            instructions.addOne(Rectangle.parse(i + " " + splitInput(splitInput.indexOf(i) + 1) + " " + splitInput(splitInput.indexOf(i) + 2) + " " + splitInput(splitInput.indexOf(i) + 3) + " " + splitInput(splitInput.indexOf(i) + 4) ))
+            splitInput(splitInput.indexOf(i)) = "USED";
+          }
+          case s if i.startsWith(InstructionsEnum.TextAt.toString) => {
+            instructions.addOne(TextAt.parse(i + " " + splitInput(splitInput.indexOf(i) + 1) + " " + splitInput(splitInput.indexOf(i) + 2) + " " + splitInput(splitInput.indexOf(i) + 3)))
+            splitInput(splitInput.indexOf(i)) = "USED";
+          }
           case _  =>      }
       })
       new Draw(instructions, color);

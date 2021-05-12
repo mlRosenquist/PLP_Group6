@@ -1,18 +1,14 @@
-package main.java.x;
-import javafx.scene.Group;
-import javafx.scene.canvas.Canvas;
+package main.java.gui;
 import javafx.scene.control.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import main.scala.controller.Controller;
-import main.scala.parser.Interpreter;
 
 
-public class FxController {
+public class GUIController {
     Controller controller;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
@@ -39,7 +35,7 @@ public class FxController {
     @FXML
     private Button clearButton;
 
-    public FxController() {
+    public GUIController() {
     }
 
     @FXML
