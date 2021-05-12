@@ -13,11 +13,12 @@ import scala.collection.mutable
 
 
 class CoordinateSystemTest extends AnyFlatSpec with Matchers  {
-  var uut = new CoordinateSystem(1000, 1000, new BoundingBox(new Point(0,0), new Point(8,8), true));
+  var boundingBox = new BoundingBox(new Point(0,0), new Point(8,8), true);
 
   "Getting a point inside the bounding" should "give a valid pixel point" in {
 
-    var pixels = uut.getPixelsFromCoordinate(new Point(4,4));
+    BoundingBox.updateValues(1000, 1000, boundingBox);
+    var pixels = CoordinateSystem.getPixelsFromCoordinate(boundingBox, new Point(4,4));
 
     pixels should not be null
 
@@ -27,7 +28,8 @@ class CoordinateSystemTest extends AnyFlatSpec with Matchers  {
 
   "Getting a point outside the bounding box" should "return null" in {
 
-    var pixels = uut.getPixelsFromCoordinate(new Point(9,9));
+    BoundingBox.updateValues(1000, 1000, boundingBox);
+    var pixels = CoordinateSystem.getPixelsFromCoordinate(boundingBox, new Point(9,9));
 
     pixels should be (null)
   }

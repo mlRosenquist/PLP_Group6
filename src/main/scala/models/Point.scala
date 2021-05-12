@@ -6,6 +6,7 @@ import main.scala.drawer.CoordinateSystem
 import java.awt.{Color, Graphics2D}
 import java.awt.image.BufferedImage
 import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
 import scala.util.{Failure, Success, Try}
 
 class Point(_x: Double, _y: Double) extends Instruction {
@@ -14,8 +15,13 @@ class Point(_x: Double, _y: Double) extends Instruction {
   def this(){
     this(0,0);
   }
+  def this(_x: Double, _y: Double, _color: Color){
+    this(_x, _y);
+    this.color = _color;
+  }
 
-  def draw(_coordinateSystem: CoordinateSystem): Unit ={
+  def draw(_boundingBox: BoundingBox): ArrayBuffer[Point] ={
+    return null;
   }
 
   def mapCoordPointToPixel(x_pixels: Int, y_pixels: Int, x_spacing: Double, y_spacing: Double) : Point  = {

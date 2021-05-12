@@ -13,48 +13,50 @@ class Fill(_figure: Instruction, _color: Color) extends Miscellaneous {
   var figure = _figure;
   this.color = _color;
 
-  def draw(_coordinateSystem: CoordinateSystem): Unit ={
-    var g = _coordinateSystem.bufferedImage.createGraphics();
-    g.setColor(this.color);
+  def draw(_boundingBox: BoundingBox): ArrayBuffer[Point] ={
+    var pixels = new ArrayBuffer[Point]();
 
     figure match {
       case (rec: Rectangle) => {
-        var pix_botLeft = _coordinateSystem.getPixelsFromCoordinate(rec.bottomLeft);
-        var pix_upRight = _coordinateSystem.getPixelsFromCoordinate(rec.upperRight);
+        var pix_botLeft = CoordinateSystem.getPixelsFromCoordinate(_boundingBox, rec.bottomLeft);
+        var pix_upRight = CoordinateSystem.getPixelsFromCoordinate(_boundingBox, rec.upperRight);
 
         (pix_botLeft, pix_upRight) match {
           case (p1: Point, p2: Point) => {
             for(i <- (pix_botLeft.x.toInt + 1  to pix_upRight.x.toInt - 1)){
               for(j <- (pix_upRight.y.toInt +1 to pix_botLeft.y.toInt - 1)){
-                _coordinateSystem.drawPixel(i, j, this.color);
+                pixels.addOne(new Point(i, j, this.color));
               }
             }
+            return pixels;
           }
           case (null, p2: Point) => {
             for(i <- (1 to pix_upRight.x.toInt - 1)){
-              for(j <- (pix_upRight.y.toInt +1 to _coordinateSystem.bufferedImage.getHeight-2)){
-                _coordinateSystem.drawPixel(i, j, this.color);
+              for(j <- (pix_upRight.y.toInt +1 to _boundingBox.height-2)){
+                pixels.addOne(new Point(i, j, this.color));
               }
             }
+            return pixels;
           }
           case (p1: Point, null) => {
-            for(i <- (pix_botLeft.x.toInt + 1 to _coordinateSystem.bufferedImage.getWidth)){
+            for(i <- (pix_botLeft.x.toInt + 1 to _boundingBox.width)){
               for(j <- (0 to pix_botLeft.y.toInt -1)){
-                _coordinateSystem.drawPixel(i, j, this.color);
+                pixels.addOne(new Point(i, j, this.color));
               }
             }
+            return pixels;
           }
-          case (_, _) =>
+          case (_, _) => return pixels;
         }
 
       }
       case (cir: Circle) => {
-        var pix_center = _coordinateSystem.getPixelsFromCoordinate(cir.center);
+        var pix_center = CoordinateSystem.getPixelsFromCoordinate(_boundingBox, cir.center);
 
-        var pix_center_moved_radius = _coordinateSystem.getPixelsFromCoordinate(new Point(cir.center.x+ cir.radius, cir.center.y));
+        var pix_center_moved_radius = CoordinateSystem.getPixelsFromCoordinate(_boundingBox, new Point(cir.center.x+ cir.radius, cir.center.y));
 
-        var pix_x_radius = (cir.radius * _coordinateSystem.x_spacing);
-        var pix_y_radius = (cir.radius * _coordinateSystem.y_spacing);
+        var pix_x_radius = (cir.radius * _boundingBox.xSpacing);
+        var pix_y_radius = (cir.radius * _boundingBox.ySpacing);
 
         var pix_x_min = pix_center.x - pix_x_radius;
         var pix_x_max = pix_center.x + pix_x_radius;
@@ -66,11 +68,12 @@ class Fill(_figure: Instruction, _color: Color) extends Miscellaneous {
         for( y <- (-pix_x_radius.toInt to pix_x_radius.toInt)){
           for(x <- (-pix_x_radius.toInt to pix_x_radius.toInt)){
             if(x*x+y*y <= pix_x_radius*pix_x_radius+pix_x_radius)
-              _coordinateSystem.drawPixel(x+pix_center.x.toInt, y+pix_center.y.toInt, color);
+              pixels.addOne(new Point(x+pix_center.x.toInt, y+pix_center.y.toInt, this.color));
           }
         }
+        return pixels;
       }
-      case _ =>
+      case _ => return pixels;
     }
 
   }

@@ -7,26 +7,32 @@ import main.scala.parser.InstructionsEnum
 import java.awt.{Color, Graphics2D}
 import java.awt.image.BufferedImage
 import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
 import scala.util.{Success, Try}
 
 class Circle(_center: Point, _radius: Int) extends Figure {
   var center = _center;
   var radius = _radius;
 
-  def draw(_coordinateSystem: CoordinateSystem): Unit ={
-    var centerPoint = _coordinateSystem.getPixelsFromCoordinate(center);
-    var circleRadius = (radius * _coordinateSystem.x_spacing)
-    drawMidpointCircle(centerPoint.x, centerPoint.y, circleRadius, _coordinateSystem)
+  def draw(_boundingBox: BoundingBox): ArrayBuffer[Point] ={
+    var pixels = new ArrayBuffer[Point]();
+
+    var centerPoint = CoordinateSystem.getPixelsFromCoordinate(_boundingBox, center);
+    if(centerPoint == null) return pixels;
+
+    var circleRadius = (radius * _boundingBox.xSpacing);
+    return drawMidpointCircle(centerPoint.x, centerPoint.y, circleRadius)
   }
   // https://www.tutorialspoint.com/computer_graphics/circle_generation_algorithm.htm and https://www.thecrazyprogrammer.com/2016/12/bresenhams-midpoint-circle-algorithm-c-c.html
-  def drawMidpointCircle(x0: Double, y0: Double, r: Double, coordinateSystem: CoordinateSystem): Unit ={
+  def drawMidpointCircle(x0: Double, y0: Double, r: Double): ArrayBuffer[Point] ={
+    var pixels = new ArrayBuffer[Point]();
     var x = r
     var y = 0.0
     var error = 0.0
 
     while (x >= y){
 
-      drawPoints(x0.toInt, y0.toInt, x.toInt, y.toInt, coordinateSystem)
+      pixels = pixels.concat(drawPoints(x0.toInt, y0.toInt, x.toInt, y.toInt));
 
       if(error <= 0){
         y += 1
@@ -38,18 +44,20 @@ class Circle(_center: Point, _radius: Int) extends Figure {
         error -= 2*x + 1;
       }
     }
+    return pixels;
   }
 
-  def drawPoints(x0: Int, y0: Int, x: Int, y: Int, coordinateSystem: CoordinateSystem): Unit ={
-    coordinateSystem.drawPixel(x0 + x, y0 + y, Color.BLACK)
-    coordinateSystem.drawPixel(x0 + y, y0 + x, Color.BLACK)
-    coordinateSystem.drawPixel(x0 - y, y0 + x, Color.BLACK)
-    coordinateSystem.drawPixel(x0 - x, y0 + y, Color.BLACK)
-    coordinateSystem.drawPixel(x0 - x, y0 - y, Color.BLACK)
-    coordinateSystem.drawPixel(x0 - y, y0 - x, Color.BLACK)
-    coordinateSystem.drawPixel(x0 + y, y0 - x, Color.BLACK)
-    coordinateSystem.drawPixel(x0 + x, y0 - y, Color.BLACK)
-
+  def drawPoints(x0: Int, y0: Int, x: Int, y: Int): ArrayBuffer[Point] ={
+    var pixels = new ArrayBuffer[Point]();
+    pixels.addOne(new Point(x0 + x, y0 + y, this.color));
+    pixels.addOne(new Point(x0 + y, y0 + x, this.color));
+    pixels.addOne(new Point(x0 - y, y0 + x, this.color));
+    pixels.addOne(new Point(x0 - x, y0 + y, this.color));
+    pixels.addOne(new Point(x0 - x, y0 - y, this.color));
+    pixels.addOne(new Point(x0 - y, y0 - x, this.color));
+    pixels.addOne(new Point(x0 + y, y0 - x, this.color) );
+    pixels.addOne(new Point(x0 + x, y0 - y, this.color));
+    return pixels;
   }
 }
 object Circle {
