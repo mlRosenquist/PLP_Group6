@@ -16,9 +16,13 @@ class Rectangle(_bottomLeft: Point, _upperRight: Point) extends Figure {
     var pixels = ArrayBuffer[Point]();
 
     var l1 = new Line(new Point(bottomLeft.x, bottomLeft.y), new Point(bottomLeft.x, upperRight.y));
+    l1.color = this.color;
     var l2 = new Line(new Point(bottomLeft.x, upperRight.y), new Point(upperRight.x, upperRight.y));
+    l2.color = this.color;
     var l3 = new Line(new Point(upperRight.x, upperRight.y), new Point(upperRight.x, bottomLeft.y));
+    l3.color = this.color;
     var l4 = new Line(new Point(upperRight.x, bottomLeft.y), new Point(bottomLeft.x, bottomLeft.y));
+    l4.color = this.color;
 
     pixels = pixels.concat(l1.draw(_boundingBox));
     pixels = pixels.concat(l2.draw(_boundingBox));

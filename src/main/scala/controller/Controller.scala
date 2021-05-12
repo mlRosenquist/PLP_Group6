@@ -30,6 +30,7 @@ class Controller(_pane: Pane, _canvas: ImageView, _logTxtArea: TextArea) {
       case (e: Error) => errors.addOne(e);
       case (t: TextAt) => text.addOne(t);
       case (d: Draw) => {
+        drawings.addOne(d);
         d.figures.foreach(f => f match {
           case (t: TextAt) => {
             t.color = d.color;

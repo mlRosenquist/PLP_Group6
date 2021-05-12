@@ -17,7 +17,10 @@ class Draw(_figures: ArrayBuffer[Instruction], _color: Color) extends Miscellane
   def draw(_boundingBox: BoundingBox): ArrayBuffer[Point] ={
     var pixels = new ArrayBuffer[Point]();
     figures.foreach(f => f.color = color);
-    figures.foreach(f => pixels = pixels.concat(f.draw(_boundingBox)));
+    figures.foreach(f => f match {
+      case (t: TextAt) => ;
+      case _ => pixels = pixels.concat(f.draw(_boundingBox))
+    });
     return pixels;
   }
 }
