@@ -12,7 +12,7 @@ class Line(_start: Point, _end: Point) extends Figure {
 
      val p0 = CoordinateSystem.getPixelsFromCoordinate(_boundingBox, start)
      val p1 = CoordinateSystem.getPixelsFromCoordinate(_boundingBox, end)
-
+     if(p0 == null || p1 == null) return pixels;
      val dx = math.abs(p1.x - p0.x) * _boundingBox.xSpacing
      val dy = math.abs(p1.y - p0.y) * _boundingBox.ySpacing
 
