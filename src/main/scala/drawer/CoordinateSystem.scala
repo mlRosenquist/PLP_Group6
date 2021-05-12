@@ -4,52 +4,44 @@ import main.scala.models.{BoundingBox, Point, TextAt}
 
 import java.awt.Color
 import java.awt.image.BufferedImage
+import scala.collection.mutable.ArrayBuffer
 
-class CoordinateSystem(_width: Int, _height: Int, _boundingBox: BoundingBox) {
-  val x_lines = (_boundingBox.upperRight.x - _boundingBox.bottomLeft.x).toInt;
-  val y_lines = (_boundingBox.upperRight.y - _boundingBox.bottomLeft.y).toInt;
+object CoordinateSystem{
+  def getLines(_boundingBox: BoundingBox) : ArrayBuffer[Point] = {
+    var pixels: ArrayBuffer[Point] = new ArrayBuffer[Point]();
+    if(_boundingBox.showGrid) {
 
-  var x_spacing = ((_width.toDouble)/x_lines.toDouble) - 1 ;
-  var y_spacing = ((_height.toDouble/y_lines.toDouble)) - 1 ;
+      // Draw horizontal lines
+      for (i <- (0 to _boundingBox.height - 1)) {
+        for (j <- 0 to _boundingBox.xLines) {
+          val pixel = new Point((_boundingBox.xSpacing * j).toInt, i);
+          if(isPixelValid(_boundingBox.width, _boundingBox.height, pixel))
+            pixels.addOne(pixel);
+        };
+      }
 
-  var bufferedImage = new BufferedImage(_width, _height, BufferedImage.TYPE_INT_RGB);
-
-  val g = bufferedImage.createGraphics()
-
-  // Set background
-  g.setBackground(java.awt.Color.lightGray);
-  g.clearRect(0, 0, _width, _height)
-
-  if(_boundingBox.showGrid == true) {
-
-
-    // Draw horizontal lines
-    for (i <- (0 to _height - 1)) {
-      for (j <- 0 to x_lines) {
-        drawPixel((x_spacing * j).toInt, i, Color.BLACK);
-      };
+      // Draw vertical lines
+      for (i <- (0 to _boundingBox.width - 1).reverse) {
+        for (j <- 0 to _boundingBox.yLines) {
+          val pixel = new Point(i, _boundingBox.height - (_boundingBox.ySpacing * j).toInt - 1);
+          if(isPixelValid(_boundingBox.width, _boundingBox.height, pixel))
+            pixels.addOne(pixel);
+        };
+      }
     }
-
-    // Draw vertical lines
-    for (i <- (0 to _width - 1).reverse) {
-      for (j <- 0 to y_lines) {
-        drawPixel(i, _height - (y_spacing * j).toInt - 1, Color.BLACK)
-      };
-    }
+    return pixels;
   }
 
-  def drawPixel(x: Int, y: Int, color: Color): Unit ={
-    if((x < 0 || x >= _width) || (y < 0 || y >= _height)){}
-    else {
-      bufferedImage.setRGB(x, y, color.getRGB());
-    }
+  def isPixelValid(_width: Int, _height: Int, _pixel: Point): Boolean ={
+    return !((_pixel.x < 0 || _pixel.x >= _width) || (_pixel.y < 0 || _pixel.y >= _height));
   }
 
-  def  getPixelsFromCoordinate(p: Point): Point ={
-    var x_pixel = (p.x - _boundingBox.bottomLeft.x) * x_spacing;
-    var y_pixel = _height - ((p.y-_boundingBox.bottomLeft.y) * y_spacing).toInt - 1;
+  def  getPixelsFromCoordinate(_boundingBox: BoundingBox, p: Point): Point = {
 
-    if(x_pixel >= _width || x_pixel < 0 || y_pixel >= _height || y_pixel < 0)
+    var x_pixel = (p.x - _boundingBox.bottomLeft.x) * _boundingBox.xSpacing;
+    var y_pixel = _boundingBox.height - ((p.y-_boundingBox.bottomLeft.y) * _boundingBox.ySpacing).toInt - 1;
+
+    if(x_pixel >= _boundingBox.width || x_pixel < 0 || y_pixel >= _boundingBox.height || y_pixel < 0)
       return null;
 
     return new Point(x_pixel, y_pixel);

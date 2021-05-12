@@ -14,9 +14,11 @@ class Draw(_figures: ArrayBuffer[Instruction], _color: Color) extends Miscellane
   var figures = _figures;
   this.color = _color
 
-  def draw(_coordinateSystem: CoordinateSystem): Unit ={
+  def draw(_boundingBox: BoundingBox): ArrayBuffer[Point] ={
+    var pixels = new ArrayBuffer[Point]();
     figures.foreach(f => f.color = color);
-    figures.foreach(f => f.draw(_coordinateSystem));
+    figures.foreach(f => pixels = pixels.concat(f.draw(_boundingBox)));
+    return pixels;
   }
 }
 object Draw {
