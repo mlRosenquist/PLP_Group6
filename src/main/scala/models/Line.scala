@@ -1,5 +1,5 @@
 package main.scala.models
-import scala.math.abs
+import main.scala.drawer.CoordinateSystem
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -8,17 +8,20 @@ class Line(_start: Point, _end: Point) extends Figure {
   val end: Point = _end
 
    def draw(_boundingBox: BoundingBox): ArrayBuffer[Point] = {
-     var pixels = new ArrayBuffer[Point]();
+     var pixels = new ArrayBuffer[Point]()
 
-     val dx = math.abs(end.x - start.x) * _boundingBox.xSpacing
-     val dy = math.abs(end.y - start.y) * _boundingBox.ySpacing
+     val p0 = CoordinateSystem.getPixelsFromCoordinate(_boundingBox, start)
+     val p1 = CoordinateSystem.getPixelsFromCoordinate(_boundingBox, end)
 
-     val sx = if (start.x < end.x) 1 else -1
-     val sy = if (start.y < end.y) 1 else -1
+     val dx = math.abs(p1.x - p0.x) * _boundingBox.xSpacing
+     val dy = math.abs(p1.y - p0.y) * _boundingBox.ySpacing
+
+     val sx = if (p0.x < p1.x) 1 else -1
+     val sy = if (p0.y < p1.y) 1 else -1
 
      def it: Iterator[(Double, Double)] = new Iterator[(Double, Double)] {
-       var x: Double = start.x
-       var y: Double = start.y
+       var x: Double = p0.x
+       var y: Double = p0.y
        var err: Double = (if (dx > dy) dx else -dy)/2
 
        def next: (Double, Double) = {
@@ -36,28 +39,14 @@ class Line(_start: Point, _end: Point) extends Figure {
          res
        }
 
-       def hasNext: Boolean = (sx*x <= sx*end.x && sy*y <= sy*end.y)
+       def hasNext: Boolean = sx*x <= sx*p1.x && sy*y <= sy*p1.y
      }
 
      for ((x,y) <- it) {
-       //pixels.addOne(new Point(x, y, this.color))
-       pixels = pixels.concat(drawPoints(start.x.toInt, start.y.toInt, x.toInt, y.toInt))
+       pixels = pixels.addOne(new Point(x, y, this.color))
      }
 
      pixels
-  }
-
-  def drawPoints(x0: Int, y0: Int, x: Int, y: Int): ArrayBuffer[Point] ={
-    val pixels = new ArrayBuffer[Point]()
-    pixels.addOne(new Point(x0 + x, y0 + y, this.color));
-    pixels.addOne(new Point(x0 + y, y0 + x, this.color));
-    pixels.addOne(new Point(x0 - y, y0 + x, this.color));
-    pixels.addOne(new Point(x0 - x, y0 + y, this.color));
-    pixels.addOne(new Point(x0 - x, y0 - y, this.color));
-    pixels.addOne(new Point(x0 - y, y0 - x, this.color));
-    pixels.addOne(new Point(x0 + y, y0 - x, this.color) );
-    pixels.addOne(new Point(x0 + x, y0 - y, this.color));
-    return pixels;
   }
 }
 
@@ -68,7 +57,6 @@ object Line {
     val end = Point.TryParse(splitInput(3), splitInput(4))
 
     (start, end) match {
-        //TODO: Reference the bounding box size for RgbBitmap
       case (p1: Point, p2: Point) => new Line(p1, p2);
       case (_, _) => new Error("Invalid Line: " + input);
     }
